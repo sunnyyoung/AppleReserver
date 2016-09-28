@@ -13,16 +13,21 @@
 
 @interface HomeViewController () <NSTableViewDataSource, NSTableViewDelegate>
 
+// TableViews
 @property (weak) IBOutlet NSTableView *storeTableView;
 @property (weak) IBOutlet NSTableView *availabilityTableView;
+// Buttons
 @property (weak) IBOutlet NSButton *onlyAvailabilityButton;
 @property (weak) IBOutlet NSButton *notificationButton;
 @property (weak) IBOutlet NSPopUpButton *timerIntervalButton;
 @property (weak) IBOutlet NSButton *fireButton;
 
+// Properties
 @property (nonatomic, copy) NSArray<Store *> *storeArray;
+@property (nonatomic, copy) NSDictionary *deviceDictionary;
 @property (nonatomic, copy) NSDictionary *availabilityDictionary;
 @property (nonatomic, strong) NSMutableArray *selectedModelArray;
+
 @property (nonatomic, strong) Store *selectedStore;
 @property (nonatomic, strong) NSTimer *pollingTimer;
 
@@ -32,39 +37,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    [self reloadStore];
-}
-
-- (void)reloadStore {
-    __weak typeof(self) weakSelf = self;
-    [self.selectedModelArray removeAllObjects];
-    [StoreRequest requestSuccess:^(NSArray<Store *> *storeArray) {
-        weakSelf.storeArray = storeArray;
-        [weakSelf.storeTableView reloadData];
-    } failure:nil];
-}
-
-- (void)reloadAvailability {
-    __weak typeof(self) weakSelf = self;
-    [AvailabilityRequest requestWithType:self.onlyAvailabilityButton.state
-                             storeNumber:self.selectedStore.storeNumber
-                                 success:^(NSDictionary *availabilityDictionary) {
-                                     weakSelf.availabilityDictionary = availabilityDictionary;
-                                     [weakSelf.availabilityTableView reloadData];
-                                     [weakSelf checkAndMakeNotification];
-                                 } failure:nil];
-}
-
-- (void)checkAndMakeNotification {
-    for (NSString *model in self.selectedModelArray) {
-        if ([self.availabilityDictionary[model] isEqualToString:@"ALL"]) {
-            Device *device = [Device deviceDictionary][model];
-            NSUserNotification *notification = [[NSUserNotification alloc] init];
-            notification.informativeText = [NSString stringWithFormat:@"%@ 有货了！！！", device.productDescription];
-            notification.soundName = NSUserNotificationDefaultSoundName;
-            [[NSUserNotificationCenter defaultUserNotificationCenter] deliverNotification:notification];
-        }
-    }
+    [self loadStoreAndDevice];
 }
 
 #pragma mark - TableView DataSource
@@ -84,7 +57,7 @@
         return self.storeArray[row].storeName;
     } else if (tableView == self.availabilityTableView) {
         NSString *model = self.availabilityDictionary.allKeys[row];
-        Device *device = [Device deviceDictionary][model];
+        Device *device = self.deviceDictionary[model];
         if ([tableColumn.identifier isEqualToString:@"Monitoring"]) {
             return @([self.selectedModelArray containsObject:model]);
         } else if ([tableColumn.identifier isEqualToString:@"Model"]) {
@@ -108,10 +81,47 @@
     [object boolValue]?[self.selectedModelArray addObject:model]:[self.selectedModelArray removeObject:model];
 }
 
+#pragma mark - Reload method
+
+- (void)loadStoreAndDevice {
+    self.deviceDictionary = [Device deviceDictionary];
+    __weak typeof(self) weakSelf = self;
+    [StoreRequest requestSuccess:^(NSArray<Store *> *storeArray) {
+        weakSelf.storeArray = storeArray;
+        [weakSelf.storeTableView reloadData];
+    } failure:nil];
+}
+
+- (void)reloadAvailability {
+    __weak typeof(self) weakSelf = self;
+    [AvailabilityRequest requestWithType:self.onlyAvailabilityButton.state
+                             storeNumber:self.selectedStore.storeNumber
+                                 success:^(NSDictionary *availabilityDictionary) {
+                                     weakSelf.availabilityDictionary = availabilityDictionary;
+                                     [weakSelf.availabilityTableView reloadData];
+                                     if (weakSelf.notificationButton.state) {
+                                         [weakSelf checkAndMakeNotification];
+                                     }
+                                 } failure:nil];
+}
+
+- (void)checkAndMakeNotification {
+    for (NSString *model in self.selectedModelArray) {
+        if ([self.availabilityDictionary[model] isEqualToString:@"ALL"]) {
+            Device *device = self.deviceDictionary[model];
+            NSUserNotification *notification = [[NSUserNotification alloc] init];
+            notification.informativeText = [NSString stringWithFormat:@"%@ 有货了！！！", device.productDescription];
+            notification.soundName = NSUserNotificationDefaultSoundName;
+            [[NSUserNotificationCenter defaultUserNotificationCenter] deliverNotification:notification];
+        }
+    }
+}
+
 #pragma mark - Event Response
 
 - (IBAction)storeTableViewAction:(NSTableView *)sender {
     self.selectedStore = self.storeArray[sender.selectedRow];
+    [self.selectedModelArray removeAllObjects];
     [self reloadAvailability];
 }
 
