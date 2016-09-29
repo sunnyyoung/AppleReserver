@@ -8,10 +8,10 @@
 
 /* Begin PBXBuildFile section */
 		5AF26B469498E5401421AE0E /* libPods-AppleReserver.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 7ADA5078B1D2EAFB06268CF9 /* libPods-AppleReserver.a */; };
+		7D4261B71D9CAB31004BEBCD /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7D4261B61D9CAB31004BEBCD /* Main.storyboard */; };
 		7DABF3A41D8F9546003015DC /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 7DABF3A31D8F9546003015DC /* AppDelegate.m */; };
 		7DABF3A71D8F9546003015DC /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 7DABF3A61D8F9546003015DC /* main.m */; };
 		7DABF3AC1D8F9546003015DC /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7DABF3AB1D8F9546003015DC /* Assets.xcassets */; };
-		7DABF3AF1D8F9546003015DC /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7DABF3AD1D8F9546003015DC /* Main.storyboard */; };
 		7DABF3BB1D8F9A1E003015DC /* Store.m in Sources */ = {isa = PBXBuildFile; fileRef = 7DABF3BA1D8F9A1E003015DC /* Store.m */; };
 		7DABF3BE1D8F9A42003015DC /* HomeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7DABF3BD1D8F9A42003015DC /* HomeViewController.m */; };
 		7DABF3C01D8FA3C8003015DC /* Devices.json in Resources */ = {isa = PBXBuildFile; fileRef = 7DABF3BF1D8FA3C8003015DC /* Devices.json */; };
@@ -24,12 +24,12 @@
 /* Begin PBXFileReference section */
 		540C7898B8E0E950BDEE0BCA /* Pods-AppleReserver.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AppleReserver.debug.xcconfig"; path = "Pods/Target Support Files/Pods-AppleReserver/Pods-AppleReserver.debug.xcconfig"; sourceTree = "<group>"; };
 		7ADA5078B1D2EAFB06268CF9 /* libPods-AppleReserver.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-AppleReserver.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		7D4261B61D9CAB31004BEBCD /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
 		7DABF39F1D8F9546003015DC /* AppleReserver.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = AppleReserver.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		7DABF3A21D8F9546003015DC /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		7DABF3A31D8F9546003015DC /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
 		7DABF3A61D8F9546003015DC /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		7DABF3AB1D8F9546003015DC /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
-		7DABF3AE1D8F9546003015DC /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		7DABF3B01D8F9546003015DC /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		7DABF3B91D8F9A1E003015DC /* Store.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Store.h; sourceTree = "<group>"; };
 		7DABF3BA1D8F9A1E003015DC /* Store.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Store.m; sourceTree = "<group>"; };
@@ -91,8 +91,8 @@
 			children = (
 				7DABF3A21D8F9546003015DC /* AppDelegate.h */,
 				7DABF3A31D8F9546003015DC /* AppDelegate.m */,
+				7D4261B61D9CAB31004BEBCD /* Main.storyboard */,
 				7DABF3AB1D8F9546003015DC /* Assets.xcassets */,
-				7DABF3AD1D8F9546003015DC /* Main.storyboard */,
 				7DABF3B61D8F99F1003015DC /* Module */,
 				7DABF3A51D8F9546003015DC /* Supporting Files */,
 			);
@@ -204,7 +204,6 @@
 			hasScannedForEncodings = 0;
 			knownRegions = (
 				en,
-				Base,
 			);
 			mainGroup = 7DABF3961D8F9546003015DC;
 			productRefGroup = 7DABF3A01D8F9546003015DC /* Products */;
@@ -221,9 +220,9 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7D4261B71D9CAB31004BEBCD /* Main.storyboard in Resources */,
 				7DABF3AC1D8F9546003015DC /* Assets.xcassets in Resources */,
 				7DABF3C01D8FA3C8003015DC /* Devices.json in Resources */,
-				7DABF3AF1D8F9546003015DC /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -295,17 +294,6 @@
 		};
 /* End PBXSourcesBuildPhase section */
 
-/* Begin PBXVariantGroup section */
-		7DABF3AD1D8F9546003015DC /* Main.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				7DABF3AE1D8F9546003015DC /* Base */,
-			);
-			name = Main.storyboard;
-			sourceTree = "<group>";
-		};
-/* End PBXVariantGroup section */
-
 /* Begin XCBuildConfiguration section */
 		7DABF3B11D8F9546003015DC /* Debug */ = {
 			isa = XCBuildConfiguration;
@@ -348,7 +336,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				MACOSX_DEPLOYMENT_TARGET = 10.11;
+				MACOSX_DEPLOYMENT_TARGET = 10.12;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = macosx;
@@ -390,7 +378,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				MACOSX_DEPLOYMENT_TARGET = 10.11;
+				MACOSX_DEPLOYMENT_TARGET = 10.12;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = macosx;
 			};
@@ -404,6 +392,7 @@
 				COMBINE_HIDPI_IMAGES = YES;
 				INFOPLIST_FILE = AppleReserver/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
+				MACOSX_DEPLOYMENT_TARGET = 10.10;
 				PRODUCT_BUNDLE_IDENTIFIER = net.sunnyyoung.AppleReserver;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
@@ -417,6 +406,7 @@
 				COMBINE_HIDPI_IMAGES = YES;
 				INFOPLIST_FILE = AppleReserver/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
+				MACOSX_DEPLOYMENT_TARGET = 10.10;
 				PRODUCT_BUNDLE_IDENTIFIER = net.sunnyyoung.AppleReserver;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
