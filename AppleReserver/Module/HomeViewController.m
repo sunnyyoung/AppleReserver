@@ -67,7 +67,7 @@
         } else if ([tableColumn.identifier isEqualToString:@"Capacity"]) {
             return device.capacity;
         }else if ([tableColumn.identifier isEqualToString:@"Status"]) {
-            return [self.availabilityDictionary.allValues[row] isEqualToString:@"NONE"]?@"无货":@"有货";
+            return [self.availabilityDictionary.allValues[row] isEqualToString:@"ALL"]?@"有货":@"无货";
         } else {
             return nil;
         }
