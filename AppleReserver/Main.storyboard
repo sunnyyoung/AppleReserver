@@ -203,7 +203,6 @@
                                                                     </tableColumn>
                                                                 </tableColumns>
                                                                 <connections>
-                                                                    <action selector="storeTableViewAction:" target="XfG-lQ-9wD" id="N6u-gw-rMW"/>
                                                                     <outlet property="dataSource" destination="XfG-lQ-9wD" id="tFY-lR-h9g"/>
                                                                     <outlet property="delegate" destination="XfG-lQ-9wD" id="gvt-0i-gUe"/>
                                                                 </connections>

@@ -16,6 +16,7 @@
 // TableViews
 @property (weak) IBOutlet NSTableView *storeTableView;
 @property (weak) IBOutlet NSTableView *availabilityTableView;
+
 // Buttons
 @property (weak) IBOutlet NSButton *onlyAvailabilityButton;
 @property (weak) IBOutlet NSButton *notificationButton;
@@ -30,6 +31,7 @@
 
 @property (nonatomic, strong) Store *selectedStore;
 @property (nonatomic, strong) NSTimer *pollingTimer;
+@property (nonatomic, copy) NSURL *reserveURL;
 
 @end
 
@@ -117,19 +119,33 @@
     }
 }
 
-#pragma mark - Event Response
+#pragma mark - Notification Handler
 
-- (IBAction)storeTableViewAction:(NSTableView *)sender {
-    self.selectedStore = self.storeArray[sender.selectedRow];
-    [self.selectedModelArray removeAllObjects];
-    [self reloadAvailability];
+- (void)tableViewSelectionDidChange:(NSNotification *)notification {
+    if ([notification.object isKindOfClass:[NSTableView class]]) {
+        NSTableView *tableVeiw = notification.object;
+        if (tableVeiw.selectedRow < 0) {
+            return;
+        }
+        if (notification.object == self.storeTableView) {
+            self.selectedStore = self.storeArray[tableVeiw.selectedRow];
+            [self.selectedModelArray removeAllObjects];
+            [self.availabilityTableView deselectAll:nil];
+            [self reloadAvailability];
+        } else if (notification.object == self.availabilityTableView) {
+            NSString *store = self.selectedStore.storeNumber;
+            NSString *model = self.availabilityDictionary.allKeys[tableVeiw.selectedRow];
+            self.reserveURL = [NSURL URLWithString:[NSString stringWithFormat:@"https://reserve.cdn-apple.com/CN/zh_CN/reserve/iPhone/availability?channel=1&returnURL=&store=%@&partNumber=%@", store, model]];
+        }
+    }
 }
 
+#pragma mark - Event Response
+
 - (IBAction)reverseAction:(NSTableView *)sender {
-    NSString *store = self.selectedStore.storeNumber;
-    NSString *model = self.availabilityDictionary.allKeys[sender.selectedRow];
-    NSURL *reverseURL = [NSURL URLWithString:[NSString stringWithFormat:@"https://reserve.cdn-apple.com/CN/zh_CN/reserve/iPhone/availability?channel=1&returnURL=&store=%@&partNumber=%@", store, model]];
-    [[NSWorkspace sharedWorkspace] openURL:reverseURL];
+    if (sender.clickedRow > 0) {
+        [[NSWorkspace sharedWorkspace] openURL:self.reserveURL];
+    }
 }
 
 - (IBAction)onlyAvailabilityButtonAction:(NSButton *)sender {
