@@ -143,7 +143,7 @@
 #pragma mark - Event Response
 
 - (IBAction)reverseAction:(NSTableView *)sender {
-    if (sender.clickedRow > 0) {
+    if (sender.clickedRow >= 0) {
         [[NSWorkspace sharedWorkspace] openURL:self.reserveURL];
     }
 }
