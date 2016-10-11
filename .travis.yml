@@ -1,0 +1,8 @@
+language: objective-c
+xcode_workspace: AppleReserver.xcworkspace
+xcode_scheme: AppleReserver
+before_install:
+- gem install activesupport -v 4.2.6
+- gem install cocoapods
+- pod repo update
+script: xctool -workspace AppleReserver.xcworkspace -scheme AppleReserver build test CODE_SIGN_IDENTITY="" CODE_SIGNING_REQUIRED=NO
