@@ -1,4 +1,4 @@
-#AppleReserver
+# AppleReserver
 
 ![License MIT](https://img.shields.io/github/license/mashape/apistatus.svg)
 ![Platform info](https://img.shields.io/badge/platform-macOS-lightgrey.svg)
@@ -6,13 +6,13 @@
 
 Apple官方预约监控助手
 
-##Screenshot
+## Screenshot
 
-![](https://raw.githubusercontent.com/Sunnyyoung/AppleReserver/master/Screenshot/Window.png)
+![](Screenshot/Window.png)
 
-##Dependency
+## Dependency
 - [YTKNetwork](https://github.com/yuantiku/YTKNetwork)
 - [MJExtension](https://github.com/CoderMJLee/MJExtension)
 
-##License
+## License
 The [MIT License](LICENSE).
