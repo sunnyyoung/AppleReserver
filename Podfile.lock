@@ -1,30 +1,12 @@
 PODS:
-  - AFNetworking (3.1.0):
-    - AFNetworking/NSURLSession (= 3.1.0)
-    - AFNetworking/Reachability (= 3.1.0)
-    - AFNetworking/Security (= 3.1.0)
-    - AFNetworking/Serialization (= 3.1.0)
-    - AFNetworking/UIKit (= 3.1.0)
-  - AFNetworking/NSURLSession (3.1.0):
-    - AFNetworking/Reachability
-    - AFNetworking/Security
-    - AFNetworking/Serialization
-  - AFNetworking/Reachability (3.1.0)
-  - AFNetworking/Security (3.1.0)
-  - AFNetworking/Serialization (3.1.0)
-  - MJExtension (3.0.13)
-  - YTKNetwork (2.0.1):
-    - AFNetworking (~> 3.0)
+  - Alamofire (4.5.1)
 
 DEPENDENCIES:
-  - MJExtension
-  - YTKNetwork
+  - Alamofire
 
 SPEC CHECKSUMS:
-  AFNetworking: 5e0e199f73d8626b11e79750991f5d173d1f8b67
-  MJExtension: 5932755f451458eefa24239358817f8d291240c7
-  YTKNetwork: f21ad2073b3353a11d257593a2859f2904bbec75
+  Alamofire: 2d95912bf4c34f164fdfc335872e8c312acaea4a
 
-PODFILE CHECKSUM: 4a4021b3deab5c50eb49619cf16ea29593826f73
+PODFILE CHECKSUM: 14519dd0495351e3d80bfac4f73f2029dd98fb96
 
-COCOAPODS: 1.0.1
+COCOAPODS: 1.3.1

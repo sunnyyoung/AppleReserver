@@ -1,4 +1,6 @@
+platform :osx, '10.11'
+
 target 'AppleReserver' do
-    pod 'YTKNetwork'
-    pod 'MJExtension'
+  use_frameworks!
+  pod 'Alamofire'
 end

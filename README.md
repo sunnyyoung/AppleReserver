@@ -8,11 +8,12 @@ Apple官方预约监控助手
 
 ## Screenshot
 
-![](Screenshot/Window.png)
+![](Screenshot/Screenshot.png)
 
 ## Dependency
-- [YTKNetwork](https://github.com/yuantiku/YTKNetwork)
-- [MJExtension](https://github.com/CoderMJLee/MJExtension)
+
+- [Alamofire](https://github.com/Alamofire/Alamofire)
 
 ## License
+
 The [MIT License](LICENSE).
