@@ -1,9 +1,8 @@
-language: objective-c
-osx_image: xcode8.2
+language: swift
+osx_image: xcode9
 xcode_workspace: AppleReserver.xcworkspace
 xcode_scheme: AppleReserver
 before_install:
-- gem install activesupport -v 4.2.6
 - gem install cocoapods
 - pod repo update --silent
 script: xcodebuild -workspace AppleReserver.xcworkspace -scheme AppleReserver CODE_SIGN_IDENTITY="" CODE_SIGNING_REQUIRED=NO
