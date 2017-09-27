@@ -21,7 +21,7 @@ class MainViewController: NSViewController {
     fileprivate var stores: [Store]?
     fileprivate var availabilities: [Availability]? {
         didSet {
-            guard let availabilities = self.availabilities, self.notificationButton.state == NSOnState else {
+            guard let availabilities = self.availabilities, self.notificationButton.state == .on else {
                 return
             }
             for selectedPartNumber in self.selectedPartNumbers {
@@ -80,7 +80,7 @@ class MainViewController: NSViewController {
         }
     }
 
-    func reloadAvailability() {
+    @objc private func reloadAvailability() {
         Alamofire.request(AppleURL.availability).responseJSON { (response) in
             if let error = response.error {
                 NSAlert(error: error).runModal()
@@ -126,7 +126,7 @@ class MainViewController: NSViewController {
         guard let url = self.reserveURL, sender.selectedRow >= 0 else {
             return
         }
-        NSWorkspace.shared().open(url)
+        NSWorkspace.shared.open(url)
     }
 }
 
@@ -145,7 +145,7 @@ extension MainViewController: NSTableViewDataSource, NSTableViewDelegate {
         if tableView == self.storeTableView {
             return self.stores?[row].storeName
         } else if tableView == self.availabilityTableView {
-            guard let identifier = tableColumn?.identifier,
+            guard let identifier = tableColumn?.identifier.rawValue,
                 let availability = self.availabilities?[row],
                 let product = self.products?.first(where: { $0.partNumber == availability.partNumber }) else {
                 return nil
