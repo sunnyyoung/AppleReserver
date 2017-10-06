@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.Storyboard.XIB" version="3.0" toolsVersion="12121" systemVersion="16G29" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" initialViewController="aN9-QO-a8x">
+<document type="com.apple.InterfaceBuilder3.Cocoa.Storyboard.XIB" version="3.0" toolsVersion="13196" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" initialViewController="aN9-QO-a8x">
     <dependencies>
         <deployment identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="12121"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="13196"/>
         <capability name="box content view" minToolsVersion="7.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -670,6 +670,9 @@
                         <rect key="contentRect" x="196" y="240" width="640" height="480"/>
                         <rect key="screenRect" x="0.0" y="0.0" width="1680" height="1028"/>
                         <value key="minSize" type="size" width="640" height="480"/>
+                        <connections>
+                            <outlet property="delegate" destination="aN9-QO-a8x" id="61k-hC-9VR"/>
+                        </connections>
                     </window>
                     <connections>
                         <segue destination="hCz-U7-tyR" kind="relationship" relationship="window.shadowedContentViewController" id="INv-3B-acX"/>
@@ -727,7 +730,7 @@
                                                 <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="X64-OB-BOE">
                                                     <rect key="frame" x="560" y="0.0" width="72" height="32"/>
                                                     <constraints>
-                                                        <constraint firstAttribute="width" constant="60" id="zcT-X9-8AE"/>
+                                                        <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="60" id="zcT-X9-8AE"/>
                                                     </constraints>
                                                     <buttonCell key="cell" type="push" title="开始" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="dvR-dR-0TN">
                                                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
@@ -737,7 +740,7 @@
                                                         <action selector="fireAction:" target="hCz-U7-tyR" id="AkS-oj-Ciz"/>
                                                     </connections>
                                                 </button>
-                                                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" allowsCharacterPickerTouchBarItem="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Oo2-Cp-kyv">
+                                                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="Oo2-Cp-kyv">
                                                     <rect key="frame" x="440" y="9" width="65" height="17"/>
                                                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="center" title="刷新间隔:" id="5eD-Rs-xE9">
                                                         <font key="font" size="13" name=".PingFangSC-Regular"/>
@@ -753,6 +756,7 @@
                                                 <constraint firstItem="eRM-Ay-TMw" firstAttribute="centerY" secondItem="Oo2-Cp-kyv" secondAttribute="centerY" id="0KN-6e-8GY"/>
                                                 <constraint firstItem="Q8e-ah-q78" firstAttribute="leading" secondItem="mQa-mL-Kj2" secondAttribute="leading" constant="8" id="0Xg-Iz-e9v"/>
                                                 <constraint firstItem="Q8e-ah-q78" firstAttribute="centerY" secondItem="mQa-mL-Kj2" secondAttribute="centerY" id="4pS-kb-iWd"/>
+                                                <constraint firstItem="eRM-Ay-TMw" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="Q8e-ah-q78" secondAttribute="trailing" constant="8" id="IdX-29-KeO"/>
                                                 <constraint firstAttribute="trailing" secondItem="X64-OB-BOE" secondAttribute="trailing" constant="8" id="JiY-m1-nku"/>
                                                 <constraint firstItem="ug9-5r-ezx" firstAttribute="leading" secondItem="Oo2-Cp-kyv" secondAttribute="trailing" constant="8" id="MuU-yW-bpA"/>
                                                 <constraint firstItem="ug9-5r-ezx" firstAttribute="centerY" secondItem="X64-OB-BOE" secondAttribute="centerY" id="Pz2-H8-8iF"/>
@@ -785,7 +789,7 @@
                                                                 <color key="backgroundColor" name="_sourceListBackgroundColor" catalog="System" colorSpace="catalog"/>
                                                                 <color key="gridColor" red="1" green="1" blue="1" alpha="0.0" colorSpace="calibratedRGB"/>
                                                                 <tableColumns>
-                                                                    <tableColumn width="127" minWidth="40" maxWidth="1000" id="ZdN-O9-1fr">
+                                                                    <tableColumn identifier="" width="127" minWidth="40" maxWidth="1000" id="ZdN-O9-1fr">
                                                                         <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" alignment="left" title="City">
                                                                             <font key="font" metaFont="smallSystem"/>
                                                                             <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
@@ -976,7 +980,7 @@
                 </viewController>
                 <customObject id="7cp-7F-UJ2" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="75" y="933"/>
+            <point key="canvasLocation" x="75" y="945"/>
         </scene>
     </scenes>
 </document>
