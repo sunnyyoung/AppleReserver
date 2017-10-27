@@ -194,7 +194,7 @@ extension MainViewController: NSTableViewDataSource, NSTableViewDelegate {
                 let partNumber = self.availabilities?[tableView.selectedRow].partNumber else {
                 return
             }
-            self.reserveURL = URL(string: "https://reserve-prime.apple.com/CN/zh_CN/reserve/iPhone/availability?channel=1&returnURL=&store=\(storeNumber)&partNumber=\(partNumber)")
+            self.reserveURL = URL(string: "https://reserve-prime.apple.com/CN/zh_CN/reserve/iPhoneX/availability?channel=1&returnURL=&store=\(storeNumber)&partNumber=\(partNumber)")
         }
     }
 }

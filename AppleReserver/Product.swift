@@ -13,7 +13,7 @@ struct Product {
     let description: String
     let color: String
     let capacity: String
-    let screenSize: Double
+    let screenSize: String
     let price: String
     let installmentPrice: String
     let installmentPeriod: String
@@ -28,8 +28,8 @@ struct Product {
     let groupName: String
     let subfamilyID: String
     let subfamily: String
-
-    init(partNumber: String, description: String, color: String, capacity: String, screenSize: Double, price: String, installmentPrice: String, installmentPeriod: String, iUPPrice: String, iUPInstallments: String, colorSortOrder: String, swatchImage: URL, image: URL, contractEnabled: Bool, unlockedEnabled: Bool, groupID: String, groupName: String, subfamilyID: String, subfamily: String) {
+    
+    init(partNumber: String, description: String, color: String, capacity: String, screenSize: String, price: String, installmentPrice: String, installmentPeriod: String, iUPPrice: String, iUPInstallments: String, colorSortOrder: String, swatchImage: URL, image: URL, contractEnabled: Bool, unlockedEnabled: Bool, groupID: String, groupName: String, subfamilyID: String, subfamily: String) {
         self.partNumber = partNumber
         self.description = description
         self.color = color
@@ -56,7 +56,7 @@ struct Product {
         guard let description = json["description"] as? String else { return nil }
         guard let color = json["color"] as? String else { return nil }
         guard let capacity = json["capacity"] as? String else { return nil }
-        guard let screenSize = json["screenSize"] as? Double else { return nil }
+        guard let screenSize = json["screenSize"] as? String else { return nil }
         guard let price = json["price"] as? String else { return nil }
         guard let installmentPrice = json["installmentPrice"] as? String else { return nil }
         guard let installmentPeriod = json["installmentPeriod"] as? String else { return nil }
