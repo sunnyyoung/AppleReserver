@@ -56,10 +56,7 @@ class MainViewController: NSViewController {
         }
         do {
             let fileData = try Data.init(contentsOf: fileURL)
-            guard let json = try JSONSerialization.jsonObject(with: fileData, options: .mutableContainers) as? [String: Any] else {
-                return
-            }
-            self.products = (json["products"] as? [[String: Any]])?.compactMap({ Product(json: $0) })
+            self.products = try JSONDecoder().decode([Product].self, from: fileData)
         } catch {
             NSAlert(error: error).runModal()
         }
@@ -67,32 +64,40 @@ class MainViewController: NSViewController {
 
     func loadStores() {
         Alamofire.request(AppleURL.stores).responseJSON { (response) in
-            if let error = response.error {
-                NSAlert(error: error).runModal()
-            } else {
-                guard let json = response.value as? [String: Any],
-                    let stores = (json["stores"] as? [[String: Any]])?.map({ Store(json: $0) }) else {
-                    return
+            do {
+                if let error = response.error {
+                    throw error
+                } else {
+                    guard let values = (response.value as? [String: Any])?["stores"] else {
+                        return
+                    }
+                    let data = try JSONSerialization.data(withJSONObject: values, options: [])
+                    self.stores = try JSONDecoder().decode([Store].self, from: data)
+                    self.storeTableView.reloadData()
                 }
-                self.stores = stores
-                self.storeTableView.reloadData()
+            } catch {
+                NSAlert(error: error).runModal()
             }
         }
     }
 
     @objc private func reloadAvailability() {
         Alamofire.request(AppleURL.availability).responseJSON { (response) in
-            if let error = response.error {
-                NSAlert(error: error).runModal()
-            } else {
-                guard let storeNumber = self.selectedStore?.storeNumber,
-                    let json = response.value as? [String: Any],
-                    let stores = json["stores"] as? [String: Any],
-                    let availabilities = (stores[storeNumber] as? [String: [String: [String: Bool]]])?.map({ Availability(key: $0.key, value: $0.value) }) else {
-                    return
+            do {
+                if let error = response.error {
+                    throw error
+                } else {
+                    guard
+                        let storeNumber = self.selectedStore?.storeNumber,
+                        let values = ((response.value as? [String: Any])?["stores"] as? [String: Any])?[storeNumber] as? [String: [String: [String: Bool]]]
+                    else {
+                        return
+                    }
+                    self.availabilities = values.compactMap({ Availability(key: $0.key, value: $0.value) })
+                    self.availabilityTableView.reloadData()
                 }
-                self.availabilities = availabilities
-                self.availabilityTableView.reloadData()
+            } catch {
+                NSAlert(error: error).runModal()
             }
         }
     }

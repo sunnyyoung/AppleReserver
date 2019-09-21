@@ -8,7 +8,7 @@
 
 import Foundation
 
-struct Availability {
+struct Availability: Codable {
     let partNumber: String
     let contract: Bool
     let unlocked: Bool

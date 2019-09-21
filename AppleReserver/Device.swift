@@ -8,7 +8,7 @@
 
 import Foundation
 
-struct Device {
+struct Device: Codable {
     let partNumber: String
     let description: String
 }
