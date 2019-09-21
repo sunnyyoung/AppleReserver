@@ -59,7 +59,7 @@ class MainViewController: NSViewController {
             guard let json = try JSONSerialization.jsonObject(with: fileData, options: .mutableContainers) as? [String: Any] else {
                 return
             }
-            self.products = (json["products"] as? [[String: Any]])?.flatMap({ Product(json: $0) })
+            self.products = (json["products"] as? [[String: Any]])?.compactMap({ Product(json: $0) })
         } catch {
             NSAlert(error: error).runModal()
         }
@@ -194,7 +194,7 @@ extension MainViewController: NSTableViewDataSource, NSTableViewDelegate {
                 let partNumber = self.availabilities?[tableView.selectedRow].partNumber else {
                 return
             }
-            self.reserveURL = URL(string: "https://reserve-prime.apple.com/CN/zh_CN/reserve/iPhoneX/availability?channel=1&returnURL=&store=\(storeNumber)&partNumber=\(partNumber)")
+            self.reserveURL = URL(string: "https://reserve-prime.apple.com/CN/zh_CN/reserve/A/availability?path=/cn/shop/buy-iphone/iphone-11-pro\(storeNumber)&partNumber=\(partNumber)")
         }
     }
 }
