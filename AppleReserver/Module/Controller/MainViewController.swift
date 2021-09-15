@@ -63,7 +63,7 @@ class MainViewController: NSViewController {
     }
 
     func loadStores() {
-        Alamofire.request(AppleURL.stores).responseJSON { (response) in
+        AF.request(AppleURL.stores).responseJSON { (response) in
             do {
                 if let error = response.error {
                     throw error
@@ -82,7 +82,7 @@ class MainViewController: NSViewController {
     }
 
     @objc private func reloadAvailability() {
-        Alamofire.request(AppleURL.availability).responseJSON { (response) in
+        AF.request(AppleURL.availability).responseJSON { (response) in
             do {
                 if let error = response.error {
                     throw error

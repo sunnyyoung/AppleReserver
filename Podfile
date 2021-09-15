@@ -1,6 +1,5 @@
-platform :osx, '10.11'
+platform :macos, '10.12'
 
 target 'AppleReserver' do
-  use_frameworks!
   pod 'Alamofire'
 end
