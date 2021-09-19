@@ -1,9 +1,8 @@
 //
 //  Constant.swift
-//  AppleReserver
+//  
 //
-//  Created by Sunnyyoung on 2017/9/19.
-//  Copyright © 2017年 Sunnyyoung. All rights reserved.
+//  Created by Sunny Young on 2021/9/18.
 //
 
 import Foundation

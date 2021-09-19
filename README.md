@@ -2,17 +2,26 @@
 
 ![License MIT](https://img.shields.io/github/license/mashape/apistatus.svg)
 ![Platform info](https://img.shields.io/badge/platform-macOS-lightgrey.svg)
-[![Build Status](https://travis-ci.org/Sunnyyoung/AppleReserver.svg?branch=master)](https://travis-ci.org/Sunnyyoung/AppleReserver)
 
 Apple官方预约监控助手
 
-## Screenshot
+## Overview
 
-![](Screenshot/Screenshot.png)
+```bash
+OVERVIEW: Apple 官方预约监控助手
 
-## Dependency
+USAGE: apple-reserver <subcommand>
 
-- [Alamofire](https://github.com/Alamofire/Alamofire)
+OPTIONS:
+  -h, --help              Show help information.
+
+SUBCOMMANDS:
+  stores                  List all available stores.
+  availabilities          List all availabilities for the specific store.
+  monitor                 Monitor the availabilities for the specific stores and parts.
+
+  See 'apple-reserver help <subcommand>' for detailed help.
+```
 
 ## License
 
