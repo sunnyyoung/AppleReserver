@@ -10,7 +10,7 @@ Apple官方预约监控助手
 ```bash
 OVERVIEW: Apple 官方预约监控助手
 
-USAGE: apple-reserver <subcommand>
+USAGE: applereserver <subcommand>
 
 OPTIONS:
   -h, --help              Show help information.
@@ -20,7 +20,40 @@ SUBCOMMANDS:
   availabilities          List all availabilities for the specific store.
   monitor                 Monitor the availabilities for the specific stores and parts.
 
-  See 'apple-reserver help <subcommand>' for detailed help.
+  See 'applereserver help <subcommand>' for detailed help
+```
+
+## Usage
+
+### Stores
+
+```bash
+$ applereserver stores
+
+🟢	R320	北京	三里屯
+🟢	R359	上海	南京东路
+🟢	R388	北京	西单大悦城
+...
+```
+
+### Availabilities
+
+```bash
+$ applereserver availabilities R320 --region CN
+
+🔴	MLH43CH/A
+🔴	MLH53CH/A
+🔴	MLH63CH/A
+...
+```
+
+### Monitor
+
+```bash
+$ applereserver monitor --interval 1 --store-numbers R320 --part-numbers MLTE3CH/A
+
+Checked for x times.
+...
 ```
 
 ## License
