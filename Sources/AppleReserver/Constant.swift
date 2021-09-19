@@ -8,6 +8,11 @@
 import Foundation
 
 public struct AppleURL {
-    static let stores = URL(string: "https://reserve-prime.apple.com/CN/zh_CN/reserve/A/stores.json")!
-    static let availability = URL(string: "https://reserve-prime.apple.com/CN/zh_CN/reserve/A/availability.json")!
+    static func stores(of region: String) -> URL {
+        return URL(string: "https://reserve-prime.apple.com/\(region)/zh_\(region)/reserve/A/stores.json")!
+    }
+
+    static func availability(of region: String) -> URL {
+        return URL(string: "https://reserve-prime.apple.com/\(region)/zh_\(region)/reserve/A/availability.json")!
+    }
 }

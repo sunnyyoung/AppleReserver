@@ -10,9 +10,9 @@ import Alamofire
 import PromiseKit
 
 struct Request {
-    static func fetchStores() -> Promise<[Store]> {
+    static func fetchStores(region: String) -> Promise<[Store]> {
         Promise { seal in
-            AF.request(AppleURL.stores).responseJSON { (response) in
+            AF.request(AppleURL.stores(of: region)).responseJSON { (response) in
                 do {
                     if let error = response.error {
                         seal.reject(error)
@@ -29,9 +29,9 @@ struct Request {
         }
     }
 
-    static func fetchAvailabilities(storeNumber: String) -> Promise<[Availability]> {
+    static func fetchAvailabilities(region: String, storeNumber: String) -> Promise<[Availability]> {
         Promise { seal in
-            AF.request(AppleURL.availability).responseJSON { (response) in
+            AF.request(AppleURL.availability(of: region)).responseJSON { (response) in
                 if let error = response.error {
                     seal.reject(error)
                 } else {
@@ -44,9 +44,9 @@ struct Request {
         }
     }
 
-    static func monitor(storeNumbers: [String], partNumbers: [String]) -> Promise<[String: String]> {
+    static func monitor(region: String, storeNumbers: [String], partNumbers: [String]) -> Promise<[String: String]> {
         Promise { seal in
-            AF.request(AppleURL.availability).responseJSON { (response) in
+            AF.request(AppleURL.availability(of: region)).responseJSON { (response) in
                 if let error = response.error {
                     seal.reject(error)
                 } else {

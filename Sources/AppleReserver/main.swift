@@ -7,14 +7,17 @@ import ArgumentParser
 struct Stores: ParsableCommand {
     static var configuration = CommandConfiguration(abstract: "List all available stores.")
 
+    @Option (name: .shortAndLong, help: "Region, eg: CN, MO")
+    var region: String = "CN"
+
     func run() throws {
         firstly {
-            Request.fetchStores()
+            Request.fetchStores(region: region)
         }.done { stores in
             print(
                 stores
                     .sorted(by: { $0.storeNumber < $1.storeNumber })
-                    .map { "\($0.enabled ? "🉑️" : "❌")\t\($0.storeNumber)\t\($0.city)\t\($0.storeName)" }
+                    .map { "\($0.enabled ? "🟢" : "🔴")\t\($0.storeNumber)\t\($0.city)\t\($0.storeName)" }
                     .joined(separator: "\n")
             )
         }.catch { error in
@@ -28,17 +31,20 @@ struct Stores: ParsableCommand {
 struct Availabilities: ParsableCommand {
     static var configuration = CommandConfiguration(abstract: "List all availabilities for the specific store.")
 
+    @Option (name: .shortAndLong, help: "Region, eg: CN, MO")
+    var region: String = "CN"
+
     @Argument (help: "Store Number, eg: R577")
     var storeNumber: String
 
     func run() throws {
         firstly {
-            Request.fetchAvailabilities(storeNumber: storeNumber)
+            Request.fetchAvailabilities(region: region, storeNumber: storeNumber)
         }.done { availabilities in
             print(
                 availabilities
                     .sorted(by: { $0.partNumber < $1.partNumber })
-                    .map { "\($0.available ? "🉑️" : "❌")\t\($0.partNumber)" }
+                    .map { "\($0.available ? "🟢" : "🔴")\t\($0.partNumber)" }
                     .joined(separator: "\n")
             )
         }.catch { error in
@@ -57,6 +63,9 @@ struct Monitor: ParsableCommand {
     @Option(name: .shortAndLong, help: "Refresh interval")
     var interval: UInt8 = 3
 
+    @Option (name: .shortAndLong, help: "Region, eg: CN, MO")
+    var region: String = "CN"
+
     @Option(name: .shortAndLong, parsing: .upToNextOption, help: "Store numbers, eg: R577 R639")
     var storeNumbers: [String]
 
@@ -66,14 +75,14 @@ struct Monitor: ParsableCommand {
     func run() throws {
         Monitor.repeater = .every(.seconds(Double(interval))) { _ in
             firstly {
-                Request.monitor(storeNumbers: storeNumbers, partNumbers: partNumbers)
+                Request.monitor(region: region, storeNumbers: storeNumbers, partNumbers: partNumbers)
             }.done { results in
                 Monitor.count += 1
                 if results.isEmpty {
                     print("\u{1B}[1A\u{1B}[KChecked for \(Monitor.count) times.")
                 } else {
                     results.forEach { (store: String, part: String) in
-                        print("\(store)\t\(part) 有货啦！！！")
+                        print("⚠️ \(Date())\t\(store)\t\(part) 有货啦！！！\n")
                     }
                 }
             }.catch { error in
