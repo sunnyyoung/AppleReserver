@@ -95,6 +95,7 @@ struct Monitor: ParsableCommand {
 
 struct AppleReserver: ParsableCommand {
     static var configuration = CommandConfiguration(
+        commandName: "applereserver",
         abstract: "Apple 官方预约监控助手",
         subcommands: [
             Stores.self,
