@@ -82,7 +82,7 @@ struct Monitor: ParsableCommand {
                     print("\u{1B}[1A\u{1B}[KChecked for \(Monitor.count) times.")
                 } else {
                     results.forEach { (store: String, part: String) in
-                        print("⚠️ \(Date())\t\(store)\t\(part) 有货啦！！！\n")
+                        print("🚨 \(Date().description(with: .current))\t\(store)\t\(part) 有货啦！！！\n\(AppleURL.reserve(of: region))")
                     }
                 }
             }.catch { error in
