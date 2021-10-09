@@ -23,6 +23,17 @@ SUBCOMMANDS:
   See 'applereserver help <subcommand>' for detailed help
 ```
 
+## Requirements
+
+- macOS >= 10.11
+- Swift 5 Runtime Support
+
+## Install
+
+```bash
+$ brew install sunnyyoung/repo/applereserver
+```
+
 ## Usage
 
 ### Stores
