@@ -63,6 +63,9 @@ struct Monitor: ParsableCommand {
     @Option(name: .shortAndLong, help: "Refresh interval")
     var interval: UInt8 = 3
 
+    @Option(name: .shortAndLong, help: "Auto open reverse URL")
+    var autoOpen: Bool = false
+
     @Option (name: .shortAndLong, help: "Region, eg: CN, MO")
     var region: String = "CN"
 
@@ -82,7 +85,11 @@ struct Monitor: ParsableCommand {
                     print("\u{1B}[1A\u{1B}[KChecked for \(Monitor.count) times.")
                 } else {
                     results.forEach { (store: String, part: String) in
-                        print("🚨 [\(part)] 马上预约：\(AppleURL.reserve(of: region, store: store, part: part))")
+                        let url = AppleURL.reserve(of: region, store: store, part: part)
+                        if autoOpen {
+                            Script.execute(command: "open \(url.absoluteString)")
+                        }
+                        print("🚨 [\(part)] 马上预约：\(url)")
                     }
                 }
             }.catch { error in
