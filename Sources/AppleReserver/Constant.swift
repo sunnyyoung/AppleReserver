@@ -17,6 +17,6 @@ public struct AppleURL {
     }
 
     static func reserve(of region: String, store: String, part: String) -> URL {
-        return URL(string: "https://reserve-prime.apple.com/\(region)/zh_\(region)/reserve/A/availability?&iUP=N&appleCare=N&rv=0&store=\(store)&partNumber=\(part)")!
+        return URL(string: "https://reserve-prime.apple.com/\(region)/zh_\(region)/reserve/A/availability?iUP=N&appleCare=N&rv=0&store=\(store)&partNumber=\(part)")!
     }
 }

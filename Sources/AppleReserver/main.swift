@@ -87,7 +87,7 @@ struct Monitor: ParsableCommand {
                     results.forEach { (store: String, part: String) in
                         let url = AppleURL.reserve(of: region, store: store, part: part)
                         if autoOpen {
-                            Script.execute(command: "open \(url.absoluteString)")
+                            Script.execute(command: "open '\(url.absoluteString)'")
                         }
                         print("🚨 [\(part)] 马上预约：\(url)")
                     }
