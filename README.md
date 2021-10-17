@@ -20,7 +20,7 @@ SUBCOMMANDS:
   availabilities          List all availabilities for the specific store.
   monitor                 Monitor the availabilities for the specific stores and parts.
 
-  See 'applereserver help <subcommand>' for detailed help
+  See 'applereserver help <subcommand>' for detailed help.
 ```
 
 ## Requirements

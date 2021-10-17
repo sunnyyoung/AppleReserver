@@ -8,15 +8,15 @@
 import Foundation
 
 public struct AppleURL {
-    static func stores(of region: String) -> URL {
-        return URL(string: "https://reserve-prime.apple.com/\(region)/zh_\(region)/reserve/A/stores.json")!
+    static func stores(of region: String, model: String) -> URL {
+        return URL(string: "https://reserve-prime.apple.com/\(region)/zh_\(region)/reserve/\(model)/stores.json")!
     }
 
-    static func availability(of region: String) -> URL {
-        return URL(string: "https://reserve-prime.apple.com/\(region)/zh_\(region)/reserve/A/availability.json")!
+    static func availability(of region: String, model: String) -> URL {
+        return URL(string: "https://reserve-prime.apple.com/\(region)/zh_\(region)/reserve/\(model)/availability.json")!
     }
 
-    static func reserve(of region: String, store: String, part: String) -> URL {
-        return URL(string: "https://reserve-prime.apple.com/\(region)/zh_\(region)/reserve/A/availability?iUP=N&appleCare=N&rv=0&store=\(store)&partNumber=\(part)")!
+    static func reserve(of region: String, model: String, store: String, part: String) -> URL {
+        return URL(string: "https://reserve-prime.apple.com/\(region)/zh_\(region)/reserve/\(model)/availability?iUP=N&appleCare=N&rv=0&store=\(store)&partNumber=\(part)")!
     }
 }

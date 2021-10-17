@@ -10,9 +10,12 @@ struct Stores: ParsableCommand {
     @Option (name: .shortAndLong, help: "Region, eg: CN, MO")
     var region: String = "CN"
 
+    @Option(name: .shortAndLong, help: "Model, A: iPhone 13 Pro Series; D: iPhone 13 Series")
+    var model: String = "A"
+
     func run() throws {
         firstly {
-            Request.fetchStores(region: region)
+            Request.fetchStores(region: region, model: model)
         }.done { stores in
             print(
                 stores
@@ -37,9 +40,12 @@ struct Availabilities: ParsableCommand {
     @Argument (help: "Store Number, eg: R577")
     var storeNumber: String
 
+    @Option(name: .shortAndLong, help: "Model, A: iPhone 13 Pro Series; D: iPhone 13 Series")
+    var model: String = "A"
+
     func run() throws {
         firstly {
-            Request.fetchAvailabilities(region: region, storeNumber: storeNumber)
+            Request.fetchAvailabilities(region: region, model: model, storeNumber: storeNumber)
         }.done { availabilities in
             print(
                 availabilities
@@ -63,11 +69,11 @@ struct Monitor: ParsableCommand {
     @Option(name: .shortAndLong, help: "Refresh interval")
     var interval: UInt8 = 3
 
-    @Option(name: .shortAndLong, help: "Auto open reverse URL")
-    var autoOpen: Bool = false
-
-    @Option (name: .shortAndLong, help: "Region, eg: CN, MO")
+    @Option(name: .shortAndLong, help: "Region, eg: CN, MO")
     var region: String = "CN"
+
+    @Option(name: .shortAndLong, help: "Model, A: iPhone 13 Pro Series; D: iPhone 13 Series")
+    var model: String = "A"
 
     @Option(name: .shortAndLong, parsing: .upToNextOption, help: "Store numbers, eg: R577 R639")
     var storeNumbers: [String]
@@ -78,17 +84,14 @@ struct Monitor: ParsableCommand {
     func run() throws {
         Monitor.repeater = .every(.seconds(Double(interval))) { _ in
             firstly {
-                Request.monitor(region: region, storeNumbers: storeNumbers, partNumbers: partNumbers)
+                Request.monitor(region: region, model: model, storeNumbers: storeNumbers, partNumbers: partNumbers)
             }.done { results in
                 Monitor.count += 1
                 if results.isEmpty {
                     print("\u{1B}[1A\u{1B}[KChecked for \(Monitor.count) times.")
                 } else {
                     results.forEach { (store: String, part: String) in
-                        let url = AppleURL.reserve(of: region, store: store, part: part)
-                        if autoOpen {
-                            Script.execute(command: "open '\(url.absoluteString)'")
-                        }
+                        let url = AppleURL.reserve(of: region, model: model, store: store, part: part)
                         print("🚨 [\(part)] 马上预约：\(url)")
                     }
                 }
