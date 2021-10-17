@@ -64,10 +64,12 @@ struct Availabilities: ParsableCommand {
 struct Monitor: ParsableCommand {
     static var configuration = CommandConfiguration(abstract: "Monitor the availabilities for the specific stores and parts.")
     static var repeater: Repeater?
-    static var count: UInt = 0
 
     @Option(name: .shortAndLong, help: "Refresh interval")
     var interval: UInt8 = 3
+
+    @Option(name: .shortAndLong, help: "Auto open reverse URL")
+    var autoOpen: Bool = false
 
     @Option(name: .shortAndLong, help: "Region, eg: CN, MO")
     var region: String = "CN"
@@ -82,18 +84,23 @@ struct Monitor: ParsableCommand {
     var partNumbers: [String]
 
     func run() throws {
+        var count = 0
+        var opened = false
         Monitor.repeater = .every(.seconds(Double(interval))) { _ in
             firstly {
                 Request.monitor(region: region, model: model, storeNumbers: storeNumbers, partNumbers: partNumbers)
             }.done { results in
-                Monitor.count += 1
+                count += 1
                 if results.isEmpty {
-                    print("\u{1B}[1A\u{1B}[KChecked for \(Monitor.count) times.")
+                    opened = false
+                    print("\u{1B}[1A\u{1B}[KChecked for \(count) times.")
                 } else {
                     results.forEach { (store: String, part: String) in
                         let url = AppleURL.reserve(of: region, model: model, store: store, part: part)
                         print("🚨 [\(part)] 马上预约：\(url)")
+                        if autoOpen && !opened { Script.execute(command: "open '\(url.absoluteString)'") }
                     }
+                    opened = true
                 }
             }.catch { error in
                 print(error)

@@ -44,13 +44,13 @@ struct Request {
         }
     }
 
-    static func monitor(region: String, model: String, storeNumbers: [String], partNumbers: [String]) -> Promise<[String: String]> {
+    static func monitor(region: String, model: String, storeNumbers: [String], partNumbers: [String]) -> Promise<[(String, String)]> {
         Promise { seal in
             AF.request(AppleURL.availability(of: region, model: model)).responseJSON { (response) in
                 if let error = response.error {
                     seal.reject(error)
                 } else {
-                    var results: [String: String] = [:]
+                    var results: [(String, String)] = []
                     let stores = ((response.value as? [String: Any])?["stores"] as? [String: Any]) ?? [:]
                     for store in stores.filter({ storeNumbers.contains($0.key) }) {
                         guard let parts = store.value as? [String: [String: [String: Bool]]] else {
@@ -60,11 +60,7 @@ struct Request {
                             guard Availability(key: part.key, value: part.value).available else {
                                 continue
                             }
-                            if results.contains(where: { $0.key == store.key }) {
-                                results[store.key]?.append(part.key)
-                            } else {
-                                results[store.key] = part.key
-                            }
+                            results.append((store.key, part.key))
                         }
                     }
                     seal.fulfill(results)
