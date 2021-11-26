@@ -63,6 +63,7 @@ struct Availabilities: ParsableCommand {
 
 struct Monitor: ParsableCommand {
     static var configuration = CommandConfiguration(abstract: "Monitor the availabilities for the specific stores and parts.")
+	static var speecher = Speech()
     static var repeater: Repeater?
 
     @Option(name: .shortAndLong, help: "Refresh interval")
@@ -70,6 +71,9 @@ struct Monitor: ParsableCommand {
 
     @Option(name: .shortAndLong, help: "Auto open reverse URL")
     var autoOpen: Bool = false
+	
+	@Option(name: .shortAndLong, help: "Use Voice Notification")
+	var useVoiceNotification: Bool = false
 
     @Option(name: .shortAndLong, help: "Region, eg: CN, MO")
     var region: String = "CN"
@@ -99,6 +103,7 @@ struct Monitor: ParsableCommand {
                         let url = AppleURL.reserve(of: region, model: model, store: store, part: part)
                         print("🚨 [\(part)] 马上预约：\(url)")
                         if autoOpen && !opened { Script.execute(command: "open '\(url.absoluteString)'") }
+						if useVoiceNotification && !opened { Self.speecher.startSpeaking("你水心的 \(part) 有货啦, 请尽快进行预约!") }
                     }
                     opened = true
                 }
