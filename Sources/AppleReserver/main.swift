@@ -6,13 +6,13 @@ import ArgumentParser
 
 struct Stores: ParsableCommand {
     static var configuration = CommandConfiguration(abstract: "List all available stores.")
-
+    
     @Option (name: .shortAndLong, help: "Region, eg: CN, MO")
     var region: String = "CN"
-
+    
     @Option(name: .shortAndLong, help: "Model, A: iPhone 13 Pro Series; D: iPhone 13 Series")
     var model: String = "A"
-
+    
     func run() throws {
         firstly {
             Request.fetchStores(region: region, model: model)
@@ -33,16 +33,16 @@ struct Stores: ParsableCommand {
 
 struct Availabilities: ParsableCommand {
     static var configuration = CommandConfiguration(abstract: "List all availabilities for the specific store.")
-
+    
     @Option (name: .shortAndLong, help: "Region, eg: CN, MO")
     var region: String = "CN"
-
+    
     @Argument (help: "Store Number, eg: R577")
     var storeNumber: String
-
+    
     @Option(name: .shortAndLong, help: "Model, A: iPhone 13 Pro Series; D: iPhone 13 Series")
     var model: String = "A"
-
+    
     func run() throws {
         firstly {
             Request.fetchAvailabilities(region: region, model: model, storeNumber: storeNumber)
@@ -63,30 +63,30 @@ struct Availabilities: ParsableCommand {
 
 struct Monitor: ParsableCommand {
     static var configuration = CommandConfiguration(abstract: "Monitor the availabilities for the specific stores and parts.")
-	static var speecher = Speech()
+    static var speecher = Speech()
     static var repeater: Repeater?
-
+    
     @Option(name: .shortAndLong, help: "Refresh interval")
     var interval: UInt8 = 3
-
+    
     @Option(name: .shortAndLong, help: "Auto open reverse URL")
     var autoOpen: Bool = false
-	
-	@Option(name: .shortAndLong, help: "Use Voice Notification")
-	var useVoiceNotification: Bool = false
-
+    
+    @Option(name: .shortAndLong, help: "Use Voice Notification")
+    var useVoiceNotification: Bool = false
+    
     @Option(name: .shortAndLong, help: "Region, eg: CN, MO")
     var region: String = "CN"
-
+    
     @Option(name: .shortAndLong, help: "Model, A: iPhone 13 Pro Series; D: iPhone 13 Series")
     var model: String = "A"
-
+    
     @Option(name: .shortAndLong, parsing: .upToNextOption, help: "Store numbers, eg: R577 R639")
     var storeNumbers: [String]
-
+    
     @Option(name: .shortAndLong, parsing: .upToNextOption, help: "Part numbers, eg: MLTE3CH/A")
     var partNumbers: [String]
-
+    
     func run() throws {
         var count = 0
         var opened = false
@@ -103,7 +103,7 @@ struct Monitor: ParsableCommand {
                         let url = AppleURL.reserve(of: region, model: model, store: store, part: part)
                         print("🚨 [\(part)] 马上预约：\(url)")
                         if autoOpen && !opened { Script.execute(command: "open '\(url.absoluteString)'") }
-						if useVoiceNotification && !opened { Self.speecher.startSpeaking("你水心的 \(part) 有货啦, 请尽快进行预约!") }
+                        if useVoiceNotification && !opened { Self.speecher.startSpeaking("你水心的 \(part) 有货啦, 请尽快进行预约!") }
                     }
                     opened = true
                 }
